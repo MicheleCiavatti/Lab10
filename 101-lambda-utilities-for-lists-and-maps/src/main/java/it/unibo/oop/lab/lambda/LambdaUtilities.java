@@ -111,12 +111,11 @@ public final class LambdaUtilities {
          * Keep in mind that a map can be iterated through its forEach method
          */
         final Map<K, V> m = new HashMap<>(map.size());
-        map.forEach((K key, Optional<V> value) -> {
+        map.forEach((key, value) -> {
             if (value.isPresent()) {
                 m.put(key, value.get());
-            }
-            else {
-                m.put(key, def.get());
+            } else {
+                m.put(key, value.get());
             }
         });
         return m;
