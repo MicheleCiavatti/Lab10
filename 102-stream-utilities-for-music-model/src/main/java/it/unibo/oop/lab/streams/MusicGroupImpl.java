@@ -42,7 +42,7 @@ public final class MusicGroupImpl implements MusicGroup {
 
     @Override
     public Stream<String> albumInYear(final int year) {
-        return null;
+        return albums.entrySet().stream().filter(entry -> entry.getValue() == year).map(Map.Entry::getKey);
     }
 
     @Override
