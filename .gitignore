@@ -1,5 +1,5 @@
 *.class
 *.bat
-/bin
-/.gradle
-/gradle
+bin/
+.gradle/
+gradle/
