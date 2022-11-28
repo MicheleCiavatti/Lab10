@@ -1,5 +1,6 @@
 package it.unibo.oop.lab.streams;
 
+import java.util.Arrays;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,7 +8,8 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.util.function.Function;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -38,7 +40,23 @@ public final class LambdaFilter extends JFrame {
         /**
          * Commands.
          */
-        IDENTITY("No modifications", Function.identity());
+        IDENTITY("No modifications", Function.identity()),
+        TO_LOWER("Lowercase", String::toLowerCase),
+        COUNT("Count chars", string -> Integer.toString(string.length())),
+        COUNT_LINES("Count number of lines", string -> Long.toString(string.chars().filter(ch -> ch == '\n').count() + 1)),
+        WORDS("List words in alphabetical order", string -> 
+            Arrays.stream(string.split(" "))
+            .sorted((s1, s2) -> s1.compareTo(s2))
+            .collect(Collectors.joining("\n"))),
+        
+        WORDS_COUNT("Count words occurrences", string ->
+            Arrays.stream(string.split(" "))
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+            .entrySet().stream()
+            .map(entry -> entry.getKey() + " -> " entry.getvalue())
+            .collect(Collectors.joining("\n"))
+            );
+        
 
         private final String commandName;
         private final Function<String, String> fun;
