@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
+import java.util.TreeSet;
 /**
  * This class will contain four utility functions on lists and maps, of which the first one is provided as example.
  * 
@@ -83,13 +83,14 @@ public final class LambdaUtilities {
          * Suggestion: consider Map.merge
          */
         final Map<R, Set<T>> map = new HashMap<>();
-        list.forEach(t -> { 
-            map.merge(op.apply(t), Set.of(t), (Set<T> oldValue, Set<T> newValue) -> {
-                oldValue.addAll(newValue);
+        list.forEach(t -> {
+            final Set<T> elem = new TreeSet<>(Set.of(t));
+            map.merge(op.apply(t), elem, (Set<T> oldValue, Set<T> newValue) -> {
+                oldValue.add(t);
                 return oldValue;
             });
         });
-        return null;
+        return map;
     }
 
     /**
