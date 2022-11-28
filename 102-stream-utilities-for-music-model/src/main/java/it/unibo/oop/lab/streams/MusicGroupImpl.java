@@ -76,7 +76,7 @@ public final class MusicGroupImpl implements MusicGroup {
                     .collect(Collectors.groupingBy(Song::getAlbumName, Collectors.summingDouble(Song::getDuration)))
                     .entrySet().stream()
                     .max((entry1, entry2) -> entry1.getValue() >= entry2.getValue() ? 1 : -1)
-                    .flatMap(Entry::getKey);
+                    .flatMap(Entry::getKey); //Need to use flatMap because we return an Optional
     }
 
     private static final class Song {
