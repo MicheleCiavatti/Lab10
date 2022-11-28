@@ -115,7 +115,7 @@ public final class LambdaUtilities {
             if (value.isPresent()) {
                 m.put(key, value.get());
             } else {
-                m.put(key, value.get());
+                m.put(key, def.get());
             }
         });
         return m;
