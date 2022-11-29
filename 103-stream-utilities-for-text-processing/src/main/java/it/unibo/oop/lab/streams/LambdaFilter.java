@@ -53,7 +53,7 @@ public final class LambdaFilter extends JFrame {
             Arrays.stream(string.split(" "))
             .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
             .entrySet().stream()
-            .map(entry -> entry.getKey() + " -> " entry.getvalue())
+            .map(entry -> entry.getKey() + " -> " + entry.getValue())
             .collect(Collectors.joining("\n"))
             );
         
